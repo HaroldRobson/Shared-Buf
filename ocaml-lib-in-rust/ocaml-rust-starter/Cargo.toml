@@ -1,0 +1,18 @@
+[package]
+name = "ocaml-lib-in-rust"
+version = "0.1.0"
+authors = ["Zach Shipko <zachshipko@gmail.com>"]
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+memoffset = "0.9.1"
+ocaml = {version = "^1.0.0"}
+
+[build-dependencies]
+ocaml-build = {version = "^1.0.0"}
+
+# Or use the development version:
+# ocaml = {git = "https://github.com/zshipko/ocaml-rs.git"}

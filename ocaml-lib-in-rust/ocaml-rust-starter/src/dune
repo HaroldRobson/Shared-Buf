@@ -1,0 +1,17 @@
+(rule
+ (targets libocaml_lib_in_rust.a dllocaml_lib_in_rust.so)
+ (deps (glob_files *.rs))
+ (action
+  (progn
+   (run sh -c "cd %{project_root}/../.. && cargo build --release")
+   (run sh -c
+     "mv %{project_root}/../../target/release/libocaml_lib_in_rust.so ./dllocaml_lib_in_rust.so 2> /dev/null || \
+      mv %{project_root}/../../target/release/libocaml_lib_in_rust.dylib ./dllocaml_lib_in_rust.so")
+   (run mv %{project_root}/../../target/release/libocaml_lib_in_rust.a libocaml_lib_in_rust.a))))
+
+(library
+ (name ocaml_lib_in_rust)
+ (public_name ocaml-lib-in-rust)
+ (foreign_archives ocaml_lib_in_rust)
+ (c_library_flags
+  (-lpthread -lc -lm)))
